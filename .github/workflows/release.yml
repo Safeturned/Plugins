@@ -8,9 +8,9 @@ on:
     branches: [master]
     paths:
       - '.github/workflows/release.yml'
-      - 'Plugins/Safeturned.Loader/**'
-      - 'Plugins/Safeturned.Module/**'
-      - 'Plugins/Safeturned.PluginInstaller/**'
+      - 'Safeturned.Loader/**'
+      - 'Safeturned.Module/**'
+      - 'Safeturned.PluginInstaller/**'
 
 jobs:
   build:
@@ -30,42 +30,42 @@ jobs:
         uses: ./.github/actions/project-build
         id: loader-build
         with:
-          project_path: Plugins/Safeturned.Loader
+          project_path: Safeturned.Loader
           project_name: Safeturned.Loader
 
       - name: Build Safeturned.Module
         uses: ./.github/actions/project-build
         id: module-build
         with:
-          project_path: Plugins/Safeturned.Module
+          project_path: Safeturned.Module
           project_name: Safeturned.Module
 
       - name: Build Safeturned.PluginInstaller
         uses: ./.github/actions/project-build
         id: installer-build
         with:
-          project_path: Plugins/Safeturned.PluginInstaller
+          project_path: Safeturned.PluginInstaller
           project_name: Safeturned.PluginInstaller
 
       - name: Upload Safeturned.Loader
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Loader
-          path: Plugins/Safeturned.Loader/bin/Release/net48/Safeturned.Loader.zip
+          path: Safeturned.Loader/bin/Release/net48/Safeturned.Loader.zip
           if-no-files-found: error
 
       - name: Upload Safeturned.Module
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Module
-          path: Plugins/Safeturned.Module/bin/Release/net48/Safeturned.Module.zip
+          path: Safeturned.Module/bin/Release/net48/Safeturned.Module.zip
           if-no-files-found: error
 
       - name: Upload Safeturned.PluginInstaller
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.PluginInstaller
-          path: Plugins/Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller.zip
+          path: Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller.zip
           if-no-files-found: error
 
       - name: Create Release
@@ -75,9 +75,9 @@ jobs:
           name: Release v${{ steps.loader-build.outputs.version }}
           tag: ${{ steps.loader-build.outputs.version }}
           artifacts: |
-            Plugins/Safeturned.Loader/bin/Release/net48/Safeturned.Loader.zip
-            Plugins/Safeturned.Module/bin/Release/net48/Safeturned.Module.zip
-            Plugins/Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller.zip
+            Safeturned.Loader/bin/Release/net48/Safeturned.Loader.zip
+            Safeturned.Module/bin/Release/net48/Safeturned.Module.zip
+            Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller.zip
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           prerelease: ${{ steps.loader-build.outputs.is_prerelease }}
           allowUpdates: true
