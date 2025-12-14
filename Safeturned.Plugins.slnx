@@ -1,0 +1,19 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="props/ModulePackaging.props" />
+    <File Path="props/SharedPackages.props" />
+    <File Path="props/SharedProjectProps.props" />
+    <File Path="props/UnityEngineDependentProjectProps.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Safeturned.Loader/Safeturned.Loader.csproj" />
+  <Project Path="Safeturned.Module/Safeturned.Module.csproj" />
+  <Project Path="Safeturned.PluginInstaller/Safeturned.PluginInstaller.csproj" />
+</Solution>

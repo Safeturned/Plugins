@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <Import Project="..\props\ModulePackaging.props"/>
+  <Import Project="..\props\SharedPackages.props"/>
+  <Import Project="..\props\SharedProjectProps.props"/>
+  <Import Project="..\props\UnityEngineDependentProjectProps.props"/>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression"/>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Module\config.json" Link="config.json" CopyToOutputDirectory="Always"/>
+    <None Include="Module\Safeturned.Module.module" CopyToOutputDirectory="Always"/>
+    <None Include="Module\Readme.txt" CopyToOutputDirectory="Always" Condition="Exists('Module\Readme.txt')"/>
+    <ModuleAssets Include="Module\**\*.*"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Safeturned.Loader\Shared\*.cs" LinkBase="Shared"/>
+  </ItemGroup>
+</Project>

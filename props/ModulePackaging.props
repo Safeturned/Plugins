@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <ModulePackageSourceDir>$(MSBuildProjectDirectory)\Module</ModulePackageSourceDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ModulePackageFiles Include="$(ModulePackageSourceDir)\**\*.*">
+      <DestinationSubdir>$([System.String]::Copy('%(RecursiveDir)').Replace('Module\',''))</DestinationSubdir>
+      <DestinationSubdir Condition=" $([System.String]::Copy('%(RecursiveDir)').StartsWith('Module\\RuntimeLibs\\')) == 'True' "> </DestinationSubdir>
+    </ModulePackageFiles>
+  </ItemGroup>
+
+  <Target Name="PackageModuleAssets" AfterTargets="Build">
+    <PropertyGroup>
+      <ModulePackageFolder>$(OutDir)$(AssemblyName)</ModulePackageFolder>
+    </PropertyGroup>
+    <RemoveDir Directories="$(ModulePackageFolder)" Condition="Exists('$(ModulePackageFolder)')" />
+    <MakeDir Directories="$(ModulePackageFolder)" />
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).dll" DestinationFolder="$(ModulePackageFolder)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).pdb" DestinationFolder="$(ModulePackageFolder)" Condition="Exists('$(OutDir)$(AssemblyName).pdb')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ModulePackageFiles)" DestinationFiles="@(ModulePackageFiles->'$(ModulePackageFolder)\%(DestinationSubdir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <RemoveDir Directories="$(ModulePackageFolder)\RuntimeLibs" Condition="Exists('$(ModulePackageFolder)\RuntimeLibs')" />
+  </Target>
+</Project>

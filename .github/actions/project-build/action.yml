@@ -1,0 +1,61 @@
+name: 'Project Build'
+description: 'Builds Safeturned plugin projects'
+inputs:
+  project_path:
+    description: 'Path to project folder'
+    required: true
+  project_name:
+    description: 'Project name (e.g. Safeturned.Loader)'
+    required: true
+  version_property:
+    description: 'MSBuild property name for version (e.g. PluginVersion)'
+    required: false
+    default: 'PluginVersion'
+outputs:
+  version:
+    description: "Full version from tag (e.g. 1.0.0-beta)"
+    value: ${{ steps.get-version.outputs.version }}
+  build_version:
+    description: "Version for build (stripped of prerelease suffix, e.g. 1.0.0)"
+    value: ${{ steps.get-version.outputs.build_version }}
+  is_prerelease:
+    description: 'Is prerelease version (contains -)'
+    value: ${{ steps.check-prerelease.outputs.is_prerelease }}
+runs:
+  using: "composite"
+  steps:
+    - name: Get version from tag
+      id: get-version
+      run: |
+        # Get full version from latest tag
+        FULL_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
+        echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
+
+        # Strip prerelease suffix for .NET Framework build (doesn't support semver prerelease)
+        BUILD_VERSION=$(echo "$FULL_VERSION" | sed 's/-.*//')
+        echo "build_version=$BUILD_VERSION" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Check Prerelease
+      id: check-prerelease
+      run: |
+        if [[ "${{ steps.get-version.outputs.version }}" == *"-"* ]]; then
+          echo "is_prerelease=true" >> $GITHUB_OUTPUT
+        else
+          echo "is_prerelease=false" >> $GITHUB_OUTPUT
+        fi
+      shell: bash
+
+    - name: Restore
+      run: dotnet restore ${{ inputs.project_path }}/${{ inputs.project_name }}.csproj
+      shell: bash
+
+    - name: Build
+      run: dotnet build ${{ inputs.project_path }}/${{ inputs.project_name }}.csproj -c Release --no-restore -p:${{ inputs.version_property }}=${{ steps.get-version.outputs.build_version }}
+      shell: bash
+
+    - name: Pack artifact
+      run: |
+        cd ${{ inputs.project_path }}/bin/Release/net48
+        zip -qq -r ${{ inputs.project_name }}.zip ./*
+      shell: bash

@@ -1,0 +1,6 @@
+{
+  "Enabled": true,
+  "EnableUpdateShutdown": false,
+  "Configuration": "Release",
+  "Version": "latest"
+}

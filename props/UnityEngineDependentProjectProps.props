@@ -1,0 +1,14 @@
+<!--
+Fixes problem when using JetBrains.Annotations in a project that references UnityEngine.CoreModule.
+Example of the problem:
+Ambiguous reference: JetBrains.Annotations.UsedImplicitlyAttribute JetBrains.Annotations.UsedImplicitlyAttribute match
+-->
+
+<Project>
+    <ItemGroup>
+        <Reference Include="UnityEngine.CoreModule"/>
+        <Reference Include="JetBrains.Annotations">
+            <Aliases>JetBrainsAnnotations</Aliases>
+        </Reference>
+    </ItemGroup>
+</Project>

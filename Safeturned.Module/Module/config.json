@@ -1,0 +1,15 @@
+{
+  "ApiKey": "sk_live_or_test_key_here",
+  "ScanIntervalSeconds": 300,
+  "WatchPaths": [
+    "Modules",
+    "Servers/*/Rocket/Plugins",
+    "Servers/*/OpenMod/plugins"
+  ],
+  "IncludePatterns": [ "*.dll" ],
+  "ExcludePatterns": [],
+  "ForceAnalyze": false,
+  "MaxConcurrentUploads": 3,
+  "LogLevel": "Info",
+  "UpdateChannel": "Release"
+}

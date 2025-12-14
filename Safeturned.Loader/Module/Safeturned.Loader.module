@@ -1,0 +1,11 @@
+{
+  "Name": "Safeturned.Loader",
+  "Version": "1.0.0.0",
+  "Assemblies":
+  [
+    {
+      "Path": "/Safeturned.Loader.dll",
+      "Role": "Server"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <Import Project="..\props\SharedPackages.props"/>
+  <Import Project="..\props\SharedProjectProps.props"/>
+  <Import Project="..\props\UnityEngineDependentProjectProps.props"/>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Safeturned.Loader\Shared\*.cs" LinkBase="Shared"/>
+  </ItemGroup>
+</Project>
