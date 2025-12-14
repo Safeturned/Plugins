@@ -51,21 +51,27 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Loader
-          path: Safeturned.Loader/bin/Release/net48/Safeturned.Loader.zip
+          path: |
+            Safeturned.Loader/bin/Release/net48/
+            !Safeturned.Loader/bin/Release/net48/*.zip
           if-no-files-found: error
 
       - name: Upload Safeturned.Module
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Module
-          path: Safeturned.Module/bin/Release/net48/Safeturned.Module.zip
+          path: |
+            Safeturned.Module/bin/Release/net48/
+            !Safeturned.Module/bin/Release/net48/*.zip
           if-no-files-found: error
 
       - name: Upload Safeturned.PluginInstaller
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.PluginInstaller
-          path: Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller.zip
+          path: |
+            Safeturned.PluginInstaller/bin/Release/net48/
+            !Safeturned.PluginInstaller/bin/Release/net48/*.zip
           if-no-files-found: error
 
       - name: Create Release
