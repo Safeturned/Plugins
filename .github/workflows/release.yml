@@ -85,7 +85,7 @@ jobs:
         if: github.event_name == 'create' && github.event.ref_type == 'tag'
         uses: ncipollo/release-action@v1
         with:
-          name: Release v${{ steps.loader-build.outputs.version }}
+          name: Safeturned Plugins Release v${{ steps.loader-build.outputs.version }}
           tag: ${{ steps.loader-build.outputs.version }}
           artifacts: |
             ./Safeturned.Loader/bin/Release/net48/Safeturned.Loader/Safeturned.Loader.zip
