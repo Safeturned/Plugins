@@ -105,8 +105,8 @@ public class ModuleLoader
     {
         var baseUrl = $"{_config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer";
         var url = string.IsNullOrWhiteSpace(_config.Version) || _config.Version.Equals("latest", StringComparison.OrdinalIgnoreCase)
-            ? baseUrl
-            : $"{baseUrl}?version={_config.Version}";
+            ? $"{baseUrl}?framework=module"
+            : $"{baseUrl}?framework=module&version={_config.Version}";
         using var request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 
@@ -148,7 +148,7 @@ public class ModuleLoader
         var currentPackedVersion = currentMetadata.PackedVersion != 0
             ? currentMetadata.PackedVersion
             : VersionHelper.PackVersion(currentMetadata.Version);
-        var requestUrl = $"{_config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer";
+        var requestUrl = $"{_config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer?framework=module";
         LoaderLogger.Info("Monitoring Safeturned updates...");
 
         while (true)

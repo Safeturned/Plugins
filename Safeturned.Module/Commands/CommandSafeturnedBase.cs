@@ -125,7 +125,7 @@ public abstract class CommandSafeturnedBase : Command
     private IEnumerator CheckForUpdates()
     {
         var config = _runner.GetConfig();
-        var url = $"{config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer";
+        var url = $"{config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer?framework=module";
 
         using var request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
