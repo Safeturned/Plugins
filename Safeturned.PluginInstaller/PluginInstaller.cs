@@ -96,7 +96,7 @@ public class PluginInstaller
 
     private IEnumerator FetchMetadata(Action<InstallerMetadata> onComplete)
     {
-        var baseUrl = $"{_config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugin-installer";
+        var baseUrl = $"{_config.ApiBaseUrl.TrimEnd('/')}/v1.0/plugins";
         var url = string.IsNullOrWhiteSpace(_config.Version) || _config.Version.Equals("latest", StringComparison.OrdinalIgnoreCase)
             ? $"{baseUrl}?framework=module"
             : $"{baseUrl}?framework=module&version={_config.Version}";
