@@ -56,6 +56,6 @@ runs:
 
     - name: Pack artifact
       run: |
-        cd ${{ inputs.project_path }}/bin/Release/net48
-        zip -qq -r ${{ inputs.project_name }}.zip ./*
+        cd ${{ inputs.project_path }}/bin/Release/net48/${{ inputs.project_name }}
+        zip -qq -r ../${{ inputs.project_name }}.zip ./*
       shell: bash

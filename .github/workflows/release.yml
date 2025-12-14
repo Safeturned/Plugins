@@ -47,31 +47,51 @@ jobs:
           project_path: Safeturned.PluginInstaller
           project_name: Safeturned.PluginInstaller
 
+      - name: Repack PluginInstaller zip
+        run: |
+          cd Safeturned.PluginInstaller/bin/Release/net48
+          rm -f Safeturned.PluginInstaller.zip
+          mkdir -p tmp
+          cp Safeturned.PluginInstaller/Safeturned.PluginInstaller.dll tmp/
+          cp Safeturned.PluginInstaller/Safeturned.PluginInstaller.pdb tmp/ 2>/dev/null || true
+          cd tmp
+          zip -qq Safeturned.PluginInstaller.zip *
+          mv Safeturned.PluginInstaller.zip ../
+          cd ..
+          rm -rf tmp
+
+      - name: Prepare artifacts
+        run: |
+          mkdir -p artifacts/Safeturned.Loader
+          mkdir -p artifacts/Safeturned.Module
+          mkdir -p artifacts/Safeturned.PluginInstaller
+
+          cp -r Safeturned.Loader/bin/Release/net48/Safeturned.Loader/* artifacts/Safeturned.Loader/
+          cp -r Safeturned.Module/bin/Release/net48/Safeturned.Module/* artifacts/Safeturned.Module/
+
+          # PluginInstaller only needs the main dll and pdb
+          cp Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller/Safeturned.PluginInstaller.dll artifacts/Safeturned.PluginInstaller/
+          cp Safeturned.PluginInstaller/bin/Release/net48/Safeturned.PluginInstaller/Safeturned.PluginInstaller.pdb artifacts/Safeturned.PluginInstaller/ 2>/dev/null || true
+
       - name: Upload Safeturned.Loader
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Loader
-          path: |
-            Safeturned.Loader/bin/Release/net48/
-            !Safeturned.Loader/bin/Release/net48/*.zip
+          path: artifacts/Safeturned.Loader/
           if-no-files-found: error
 
       - name: Upload Safeturned.Module
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.Module
-          path: |
-            Safeturned.Module/bin/Release/net48/
-            !Safeturned.Module/bin/Release/net48/*.zip
+          path: artifacts/Safeturned.Module/
           if-no-files-found: error
 
       - name: Upload Safeturned.PluginInstaller
         uses: actions/upload-artifact@v5
         with:
           name: Safeturned.PluginInstaller
-          path: |
-            Safeturned.PluginInstaller/bin/Release/net48/
-            !Safeturned.PluginInstaller/bin/Release/net48/*.zip
+          path: artifacts/Safeturned.PluginInstaller/
           if-no-files-found: error
 
       - name: Create Release
