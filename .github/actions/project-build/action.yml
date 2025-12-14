@@ -53,9 +53,3 @@ runs:
     - name: Build
       run: dotnet build ${{ inputs.project_path }}/${{ inputs.project_name }}.csproj -c Release --no-restore -p:${{ inputs.version_property }}=${{ steps.get-version.outputs.build_version }}
       shell: bash
-
-    - name: Pack artifact
-      run: |
-        cd ${{ inputs.project_path }}/bin/Release/net48/${{ inputs.project_name }}
-        zip -qq -r ../${{ inputs.project_name }}.zip ./*
-      shell: bash
