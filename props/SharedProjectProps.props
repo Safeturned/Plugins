@@ -3,8 +3,8 @@
     <PropertyGroup>
         <PackageId>$(AssemblyName)</PackageId>
         <RepositoryType>git</RepositoryType>
-        <Authors>UnturnedGuard</Authors>
-        <Company>UnturnedGuard</Company>
+        <Authors>Safeturned</Authors>
+        <Company>Safeturned</Company>
         <Copyright>sunnamed434</Copyright>
         <PluginVersion>0.0.0</PluginVersion>
         <Version>$(PluginVersion)</Version>
